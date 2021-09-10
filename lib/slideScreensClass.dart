@@ -27,7 +27,7 @@ class _SlideScreensState extends State<SlideScreens> {
             fontWeight: FontWeight.bold,
             fontFamily: 'RobotoMono'),
         description:
-            "Avec la plate-forme reborn your shoes, vous pouvez acheter n'importe quelle chaussure.",
+            "Avec REBORN YOUR SHOES vous disposez d'un large choix de chaussures à acheter.",
         styleDescription: TextStyle(
             color: Colors.black,
             fontSize: 20.0,
@@ -48,7 +48,7 @@ class _SlideScreensState extends State<SlideScreens> {
             fontWeight: FontWeight.bold,
             fontFamily: 'RobotoMono'),
         description:
-            "Avec reborn your shoes platform vous pourriez vendre des chaussures.",
+            "Avec REBORN YOUR SHOES vous pouvez vendre vos chaussures.",
         styleDescription: TextStyle(
             color: Colors.black,
             fontSize: 20.0,
