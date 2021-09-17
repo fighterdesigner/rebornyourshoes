@@ -40,16 +40,15 @@ class _MainPageState extends State<MainPage> {
             child: WebView(
           initialUrl: 'https://www.rebornyourshoes.com/',
           javascriptMode: JavascriptMode.unrestricted,
-          onWebViewCreated: (WebViewController webViewController) {
+          onWebViewCreated: (WebViewController webViewController) async {
             _controller.complete(webViewController);
-          },
-          onProgress: (int progress) async {
             if (await isSeenScreen()) {
               tz.initializeTimeZones();
               NotificationService().showNotification(1, 'Bonjour 🖐 !',
                   'Bienvenue sur la plateforme Reborn your Shoes', 1);
             }
           },
+          onProgress: (int progress) {},
           onPageFinished: (String url) async {
             final SharedPreferences sharedPreferences =
                 await SharedPreferences.getInstance();
