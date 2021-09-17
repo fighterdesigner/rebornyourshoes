@@ -48,7 +48,9 @@ class _MainPageState extends State<MainPage> {
                   'Bienvenue sur la plateforme Reborn your Shoes', 1);
             }
           },
-          onProgress: (int progress) {},
+          onProgress: (int progress) {
+            print("we are in the process phase");
+          },
           onPageFinished: (String url) async {
             final SharedPreferences sharedPreferences =
                 await SharedPreferences.getInstance();
