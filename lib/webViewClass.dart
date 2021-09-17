@@ -1,9 +1,10 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'notifications.dart';
-import 'package:timezone/data/latest.dart' as tz;
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:timezone/data/latest.dart' as tz;
+import 'notifications.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -18,11 +19,17 @@ class _MainPageState extends State<MainPage> {
 
   @override
   void initState() {
-    super.initState();
     if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
-    tz.initializeTimeZones();
-    NotificationService().showNotification(
-        1, 'Bonjour 🖐 !', 'Bienvenue sur la plateforme Reborn your Shoes', 10);
+    super.initState();
+  }
+
+  Future isSeenScreen() async {
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
+
+    var seenState = await sharedPreferences.getBool("seen") ?? false;
+
+    return !seenState;
   }
 
   @override
@@ -36,8 +43,18 @@ class _MainPageState extends State<MainPage> {
           onWebViewCreated: (WebViewController webViewController) {
             _controller.complete(webViewController);
           },
-          onProgress: (int progress) {
-            print("WebView is loading (progress : $progress%)");
+          onProgress: (int progress) async {
+            if (await isSeenScreen()) {
+              tz.initializeTimeZones();
+              NotificationService().showNotification(1, 'Bonjour 🖐 !',
+                  'Bienvenue sur la plateforme Reborn your Shoes', 1);
+            }
+          },
+          onPageFinished: (String url) async {
+            final SharedPreferences sharedPreferences =
+                await SharedPreferences.getInstance();
+            sharedPreferences.setBool("seen", true);
+            print("the session registred");
           },
           javascriptChannels: <JavascriptChannel>{
             _toasterJavascriptChannel(context),

@@ -1,19 +1,21 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:intro_slider/intro_slider.dart';
 import 'package:intro_slider/slide_object.dart';
 import 'package:intro_slider/scrollbar_behavior_enum.dart';
 import 'webViewClass.dart';
 
+bool seen = false;
+
 class SlideScreens extends StatefulWidget {
   const SlideScreens({Key? key}) : super(key: key);
 
   @override
-  _SlideScreensState createState() => _SlideScreensState();
+  _SlideScreensState createState() => new _SlideScreensState();
 }
 
 class _SlideScreensState extends State<SlideScreens> {
   List<Slide> slides = [];
-
   @override
   void initState() {
     super.initState();
